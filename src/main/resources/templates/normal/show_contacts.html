@@ -1,0 +1,106 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Show Contacts</title>
+</head>
+<body>
+	<section>
+	
+		
+		<div class="card mr-3 ml-3">
+		
+		<div class="card-body">
+		
+		<h1 class="text-center"> Your Contacts</h1>
+		
+		<!-- Search -->
+
+			<div class="search-container- my-4">
+			
+				<input onkeyup="search()" id="search-input" type="text"  class="form-control" placeholder="Search your Contact"/>
+					
+					<div class="search-result">
+					
+						<!-- Result goes here -->
+						
+						
+					
+					</div>
+			
+			</div>		
+		
+		
+		<div class="table-responsive">
+		<table class="table table-hover">
+		
+				  <thead>
+				    <tr>
+				      <th scope="col"># Id</th>
+				      <th scope="col">Name</th>
+				      <th scope="col">Email</th>
+				      <th scope="col">Phone</th>
+				      <th scope="col">Action</th>
+				    </tr>
+ 				 </thead>
+			  <tbody>
+			  
+			    <tr th:each="c : ${contacts}">
+			    
+			      <th scope="row"th:text="${'SCMUSER:'+c.cid}">1</th>
+			      
+			      <td >
+			      
+			      <img src="" class="my_profile_picture " th:src="@{'/image/'+${c.image}}" alt="profile photo" />
+			      
+			      <span th:text="${c.name}"></span>
+			      </td>
+
+			      <td >
+			      <a href="#" th:href="@{'/user/contact/'+${c.cid}}">
+			      
+			      <span th:text="${c.email}"></span>
+			      </a>
+			      </td>
+
+			      <td th:text="${c.phone}"></td>
+
+			      <td>
+			      
+			      <a href="#" th:onclick="|deleteContact(${c.cid})|"class="btn btn-danger btn-sm">Delete</a>
+			    
+			    
+			    <form method="post" th:action="@{'/user/update-contact/'+${c.cid}} " class="mt-2">
+			    			
+			    			  <button type="submit" class="btn btn-primary btn-sm">Update</button>
+			    
+			    
+			    </form>
+			      
+			      </td>
+			    </tr>
+			   
+			  </tbody>
+	
+		</table>
+		
+			</div>
+			
+		</div>
+		
+		</div>
+
+<script>
+	
+	$(document).ready(()=>{
+		
+		$('.item').removeClass('active');
+		$("#contacts-link").addClass("active")
+	});
+	
+	</script>
+	
+	</section>
+</body>
+</html>
